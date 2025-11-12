@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Spring Boot Application
+  nutrimate-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nutrimate-api-server
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/nutrimate
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - JWT_SECRET_KEY=your-super-secret-key-that-is-long-enough-for-hs256
+    networks:
+      - nutrimate-network
+
+  # PostgreSQL Database
+  db:
+    image: postgres:14-alpine
+    container_name: nutrimate-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=nutrimate
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - nutrimate-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: nutrimate-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - nutrimate-network
+
+volumes:
+  postgres_data:
+
+networks:
+  nutrimate-network:
+    driver: bridge
