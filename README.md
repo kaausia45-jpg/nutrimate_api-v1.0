@@ -7,6 +7,10 @@ NutriMate API는 사용자의 건강 목표, 알레르기, 선호 식단(비건,
 사용자 프로필 관리: 개인의 신체 정보, 건강 목표, 알레르기 및 식단 선호도를 설정하고 관리합니다.
 AI 기반 식단 추천: 사용자 프로필에 최적화된 일일 식단(아침/점심/저녁)을 추천받을 수 있습니다.
 실시간 영양소 분석: 섭취한 음식을 기록하고 일일 목표 대비 칼로리, 탄수화물, 단백질, 지방 섭취량을 분석합니다.
+
+
+
+
 2. 🗄️ 핵심 데이터베이스 스키마 (PostgreSQL)
 주요 엔티티 간의 관계를 간략하게 표현한 스키마입니다.
 
@@ -60,6 +64,9 @@ CREATE TABLE nutritional_analysis (
     total_protein_g NUMERIC(7, 2),
     total_fat_g NUMERIC(7, 2)
 );
+
+
+
 3. 🛠️ 기술 스택 및 구현 상세 전략
 언어 및 프레임워크: Java 17, Spring Boot 3
 데이터베이스: PostgreSQL
@@ -74,7 +81,11 @@ Redis 캐싱 전략
 구현: Spring의 @Cacheable 어노테이션을 활용합니다. FoodService의 getFoodById(food_id) 메소드에 @Cacheable(value = "foods", key = "#food_id")를 적용합니다.
 캐시 키: foods::[food_id] 형태로 Redis에 저장됩니다.
 캐시 만료 정책: TTL(Time-To-Live)을 24시간으로 설정합니다. 영양소 정보는 거의 변하지 않으므로 긴 만료 시간을 설정하고, 만약 데이터 수정이 발생하면 해당 캐시를 명시적으로 제거(evict)하는 로직을 추가합니다.
-4. 🐳 로컬 환경 구축 (Docker)
+
+
+
+
+5. 🐳 로컬 환경 구축 (Docker)
 프로젝트 루트 디렉터리에서 아래 명령어를 실행하여 API 서버, PostgreSQL, Redis 컨테이너를 한 번에 실행할 수 있습니다.
 
 docker-compose up -d
