@@ -1,3 +1,7 @@
+**This project was fully generated in 5 minutes by EIDOS AI.
+
+
+
 NutriMate API 🥗
 1. 🎯 프로젝트 소개 및 핵심 기능
 NutriMate API는 사용자의 건강 목표, 알레르기, 선호 식단(비건, 키토 등)을 기반으로 개인화된 식단 추천 및 영양소 섭취 분석 기능을 제공하는 고성능 백엔드 API입니다. 건강에 관심이 많은 사용자들이 자신의 영양 상태를 손쉽게 관리할 수 있도록 돕는 것을 목표로 합니다.
